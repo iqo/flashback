@@ -14,6 +14,8 @@ def timeLapse(timeInterval):
     startHour = "%02d" % (datetime.now().hour)
     startMinutes = "%02d" % (datetime.now().minute)
     cwd = os.getcwd()
+    fileNumber = 1
+
 
     pictureFolder = "flashback." + str(startYear)  + "." + str(startMonth) + "." + str(startDay)  + "." + str(startHour) + "." +  str(startMinutes)
     if not(os.path.exists(str(cwd) + '/pictures')):
@@ -21,7 +23,6 @@ def timeLapse(timeInterval):
 
     if not(os.path.exists(str(cwd) + '/pictures/' + str(pictureFolder))):
         os.mkdir(str(cwd) +"/pictures/"  + pictureFolder)
-    fileNumber = 1
 
     while(True):
         fileSerialNumber = "%04d" % (fileNumber)
