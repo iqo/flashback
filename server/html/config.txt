@@ -1,0 +1,11 @@
+https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04
+
+Ports: External(computer/pi/..):Internal (Docker-container)
+sudo docker run --name docker-nginx -p 8787:80 -d -v ~/docker/m7012e/html:/usr/share/nginx/html nginx
+
+Stop and remove:
+sudo docker stop docker-nginx
+sudo docker rm docker-nginx
+
+View containers:
+sudo docker ps

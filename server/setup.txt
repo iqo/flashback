@@ -1,0 +1,21 @@
+IP: 155.4.193.120
+
+HTML:
+sudo docker run --name nginx -p 8181:80 -v ~/Downloads/Pervasive-computing/Server/html:/usr/share/nginx/html -d nginx
+
+Storage:
+sudo docker run --name minio -p 9000:9000 -d alexellis2/minio-armhf
+sudo docker logs minio
+
+
+https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04
+
+Ports: External(computer/pi/..):Internal (Docker-container)
+sudo docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
+
+Stop and remove:
+sudo docker stop docker-nginx
+sudo docker rm docker-nginx
+
+View containers:
+sudo docker ps
