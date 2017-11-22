@@ -5,8 +5,8 @@ from picamera import PiCamera
 
 def timeLapse(timeInterval):
     camera = PiCamera()
-    camera.hflip = True
-    camera.vflip = True
+ #   camera.hflip = True
+#    camera.vflip = True
 
     startYear = "%04d" % (datetime.now().year)
     startMonth = "%02d" % (datetime.now().month)
@@ -15,6 +15,7 @@ def timeLapse(timeInterval):
     startMinutes = "%02d" % (datetime.now().minute)
     cwd = os.getcwd()
     fileNumber = 1
+    killFlag = 0
 
 
     pictureFolder = "flashback." + str(startYear)  + "." + str(startMonth) + "." + str(startDay)  + "." + str(startHour) + "." +  str(startMinutes)
@@ -39,7 +40,5 @@ def timeLapse(timeInterval):
         fileNumber = fileNumber + 1
         sleep(timeInterval)
 
-
-
     
-timeLapse(25)
+#timeLapse(5)
