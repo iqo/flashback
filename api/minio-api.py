@@ -1,6 +1,6 @@
 import os
 import sys
-import argparse
+import shutil
 from minio import Minio
 from minio.error import ResponseError
 
@@ -63,7 +63,8 @@ def downloadfolder(dirname):
     except ResponseError as err:
         print(err)
 
-
+def deletelocalfolder(dirname):
+    shutil.rmtree(dirname)
 
 if __name__ == '__main__':
     if(sys.argv[1] == 'uploadfolder'):
@@ -74,5 +75,7 @@ if __name__ == '__main__':
         downloadfile(sys.argv[2], sys.argv[3])
     elif(sys.argv[1] == 'downloadfolder'):
         downloadfolder(sys.argv[2])
+    elif(sys.argv[1] == 'deletelocal'):
+        deletelocalfolder(sys.argv[2])
     else:
         print("Damn son its broken")
