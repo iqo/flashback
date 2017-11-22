@@ -36,13 +36,43 @@ def deletefolder(dirname):
     except ResponseError as err:
         print(err)
 
+def downloadfile(dirname, filename):
+    client = getClient()
+    try:
+        data = client.get_object(dirname, filename)
+        with open('my-testfile', 'wb') as file_data:
+            for d in data.stream(32*1024):
+                file_data.write(d)
+    except ResponseError as err:
+        print(err)
+
+def downloadfolder(dirname):
+    client = getClient()
+    path = 'downloads/'+dirname
+    try: 
+        if(client.bucket_exists(dirname)):
+            if not os.path.exists(path):
+                os.makedirs(path)
+            objects = client.list_objects(dirname)
+            for obj in objects:
+                data = client.get_object(dirname, obj.object_name)
+                with open(path+'/'+obj.object_name, 'wb') as file_data:
+                    for d in data.stream(32*1024):
+                        file_data.write(d)
+
+    except ResponseError as err:
+        print(err)
+
+
 
 if __name__ == '__main__':
-    # Map command line arguments to function arguments.
-    print(sys.argv)
     if(sys.argv[1] == 'uploadfolder'):
         uploadfolder(sys.argv[2])
     elif(sys.argv[1] == 'deletefolder'):
         deletefolder(sys.argv[2])
+    elif(sys.argv[1] == 'downloadfile'):
+        downloadfile(sys.argv[2], sys.argv[3])
+    elif(sys.argv[1] == 'downloadfolder'):
+        downloadfolder(sys.argv[2])
     else:
         print("Damn son its broken")
