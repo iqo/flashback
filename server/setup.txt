@@ -7,6 +7,10 @@ Storage:
 sudo docker run --name minio -p 9000:9000 -d alexellis2/minio-armhf
 sudo docker logs minio
 
+API:
+sudo docker build -t flask-sample-one:latest .
+sudo docker run -d -p 5000:5000 --name pytest1 flask-sample-one
+
 
 https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04
 
