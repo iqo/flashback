@@ -6,9 +6,13 @@ from minio.error import ResponseError
 
 
 def getClient():
-    minioClient = Minio('127.0.0.1:9000',
-                    access_key='IW6X2CGYU7GPK3W0CSX9',
-                    secret_key='Dmb3tAH6V6b8NsVa+kv5rQWQ2I3DHbz7xCUu9jFT',
+    #minioClient = Minio('127.0.0.1:9000',
+    #                access_key='IW6X2CGYU7GPK3W0CSX9',
+    #                secret_key='Dmb3tAH6V6b8NsVa+kv5rQWQ2I3DHbz7xCUu9jFT',
+    #                secure=False)
+    minioClient = Minio('155.4.193.120:9000',
+                    access_key='M432WQDCN0SKMW0LS961',
+                    secret_key='MVQdFH7kiea8g4UFxSE5xEMoWfShXz7Sh2lv8AT9',
                     secure=False)
     return minioClient
 
