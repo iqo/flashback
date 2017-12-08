@@ -54,7 +54,7 @@ try:
 	elif data == "30":
 		child_thread = Process(target=timeLapse, args=(queue, 30))
 		child_thread.start()
-	elif (data == "0") or (data == "s"):
+	elif (data == "0") or (data == "stop"):
 		child_thread.terminate()
 		child_thread.join()
 	elif (data == "e"):
