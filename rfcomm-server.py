@@ -11,7 +11,8 @@ from multiprocessing import Queue
 #sys.path.insert(0,'/home/pi/Documents/programming/github/flashback')
 sys.path.insert(0,'/usr/share/doc/bluetooth')
 
-
+from minio-api import uploadAndPurge
+from minio-api import purgeStorage
 from TimeLapse import timeLapse
 from bluetooth import *
 
@@ -43,23 +44,30 @@ try:
 	print(data)
         if len(data) == 0:
 		break
-        elif data == "10":
+    elif data == "10":
 		print("Starting timelapsinterval  [%s]" % data) 
 		child_thread = Process(target=timeLapse, args=(queue, 10))
 		child_thread.start()
-		print("kuk")
 	elif data == "20":
 		child_thread = Process(target=timeLapse, args=(queue, 20))
 		child_thread.start()
 	elif data == "30":
 		child_thread = Process(target=timeLapse, args=(queue, 30))
 		child_thread.start()
-	elif (data == "0") or (data == "stop"):
+	elif data == "u": #upload and purge local storage
+		child_thread = Process(target=uploadAndPurge, args=(queue))
+		child_thread.start()
+	elif data == "66": #executes order 66
+		child_thread = Process(target=purgeStorage, args=(queue))
+	elif (data == "0") or (data == "s"):
 		child_thread.terminate()
 		child_thread.join()
 	elif (data == "e"):
 		break
 except IOError:
+	if child_thread.is_alive():
+		child_thread.terminate()
+		child_thread.join()
     pass
 
 print "disconnected"
