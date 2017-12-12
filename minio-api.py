@@ -1,8 +1,10 @@
 import os
 import sys
 import shutil
+import urllib2
 from minio import Minio
 from minio.error import ResponseError
+from multiprocessing import Queue
 
 
 def getClient():
@@ -17,19 +19,19 @@ def getClient():
     return minioClient
 
 
-def uploadfolder(dirname):
+def uploaddir(path, dirname):
     client = getClient()
     try:
         if(not(client.bucket_exists(dirname))): 
             client.make_bucket(dirname)
-        for filename in os.listdir(dirname):
-            file_stat = os.stat(dirname+'/'+filename)   
-            file_data = open(dirname+'/'+filename, 'rb')
+        for filename in os.listdir(path+dirname):
+            file_stat = os.stat(path+dirname+'/'+filename)   
+            file_data = open(path+dirname+'/'+filename, 'rb')
             client.put_object(dirname, filename, file_data, file_stat.st_size)
     except ResponseError as err:
         print(err)
 
-def deletefolder(dirname):
+def deletedir(dirname):
     client = getClient()
     try:
         if(client.bucket_exists(dirname)):
@@ -50,7 +52,7 @@ def downloadfile(dirname, filename):
     except ResponseError as err:
         print(err)
 
-def downloadfolder(dirname):
+def downloaddir(dirname):
     client = getClient()
     path = 'downloads/'+dirname
     try: 
@@ -67,19 +69,55 @@ def downloadfolder(dirname):
     except ResponseError as err:
         print(err)
 
-def deletelocalfolder(dirname):
+def deletelocaldir(dirname):
     shutil.rmtree(dirname)
 
+def internet_on():
+    try:
+        urllib2.urlopen('http://216.58.192.142', timeout=1)
+        return True
+    except urllib2.URLError as err: 
+        return False
+
+def uploadAndPurge(queue):
+    queue.put("started upload")
+    if not internet_on():
+        return
+    pictures = os.listdir("pictures")
+    print(os.listdir("pictures"))
+    for dirname in pictures:
+        print(dirname)
+        uploaddir("pictures/", dirname)
+        deletelocaldir("pictures/" + dirname)
+
+def purgeOnlineStorage(queue):
+    queue.put("started purge of storage")
+    client = getClient()
+    buckets = client.list_buckets()
+    for bucket in buckets:
+        deletedir(bucket.name)
+
+
 if __name__ == '__main__':
-    if(sys.argv[1] == 'uploadfolder'):
-        uploadfolder(sys.argv[2])
-    elif(sys.argv[1] == 'deletefolder'):
-        deletefolder(sys.argv[2])
-    elif(sys.argv[1] == 'downloadfile'):
-        downloadfile(sys.argv[2], sys.argv[3])
-    elif(sys.argv[1] == 'downloadfolder'):
-        downloadfolder(sys.argv[2])
-    elif(sys.argv[1] == 'deletelocal'):
-        deletelocalfolder(sys.argv[2])
-    else:
-        print("Damn son its broken")
+    try:
+        queue = Queue()
+        if(sys.argv[1] == 'test'):
+            purgeOnlineStorage()
+        elif(sys.argv[1] == 'uploaddir'):
+            uploaddir(sys.argv[2]+"/", sys.argv[3])
+        elif(sys.argv[1] == 'deletedir'):
+            deletedir(sys.argv[2])
+        elif(sys.argv[1] == 'downloadfile'):
+            downloadfile(sys.argv[2], sys.argv[3])
+        elif(sys.argv[1] == 'downloaddir'):
+            downloaddir(sys.argv[2])
+        elif(sys.argv[1] == 'deletelocal'):
+            deletelocaldir(sys.argv[2])
+        elif(sys.argv[1] == "uploadandpurge"):
+            uploadAndPurge(queue)
+        elif(sys.argv[1] == "purgeRemote"):
+            purgeOnlineStorage(queue):
+        else:
+            print("Non-existing function")
+    except IndexError:
+        print("Index error")
