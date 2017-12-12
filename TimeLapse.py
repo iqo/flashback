@@ -24,10 +24,11 @@ def timeLapse(queue, timeInterval):
     pictureFolder = "flashback." + str(startYear)  + "." + str(startMonth) + "." + str(startDay)  + "." + str(startHour) + "." +  str(startMinutes)
     if not(os.path.exists(str(cwd) + '/pictures')):
         os.mkdir('pictures')
+        #os.chmod('pictures', 777) 
 
     if not(os.path.exists(str(cwd) + '/pictures/' + str(pictureFolder))):
         os.mkdir(str(cwd) +"/pictures/"  + pictureFolder)
-
+       # os.chmod('pictures/'+ str(pictureFolder), 777) 
     while(True):
         fileSerialNumber = "%04d" % (fileNumber)
         currentYear = "%04d" % (datetime.now().year)

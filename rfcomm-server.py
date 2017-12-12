@@ -55,10 +55,10 @@ try:
 		child_thread = Process(target=timeLapse, args=(queue, 30))
 		child_thread.start()
 	elif data == "upload": #upload and purge local storage
-		child_thread = Process(target=uploadAndPurge, args=(queue))
+		child_thread = Process(target=uploadAndPurge, args=(queue,))
 		child_thread.start()
 	elif data == "66": #executes order 66
-		child_thread = Process(target=purgeOnlineStorage, args=(queue))
+		child_thread = Process(target=purgeOnlineStorage, args=(queue,))
 	elif (data == "0") or (data == "stop"):
 		child_thread.terminate()
 		child_thread.join()

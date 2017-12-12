@@ -116,7 +116,7 @@ if __name__ == '__main__':
         elif(sys.argv[1] == "uploadandpurge"):
             uploadAndPurge(queue)
         elif(sys.argv[1] == "purgeRemote"):
-            purgeOnlineStorage(queue):
+            purgeOnlineStorage(queue)
         else:
             print("Non-existing function")
     except IndexError:
