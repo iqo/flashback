@@ -14,8 +14,8 @@
 
     <application
         android:debuggable="false"
-        android:icon="@drawable/icon"
-        android:label="@string/app_name" >
+        android:icon="@mipmap/icon"
+        android:label="FlashBack" >
         <activity
             android:name="es.pymasde.blueterm.BlueTerm"
             android:configChanges="keyboardHidden|orientation"

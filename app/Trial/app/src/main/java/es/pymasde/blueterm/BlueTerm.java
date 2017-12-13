@@ -243,6 +243,8 @@ public class BlueTerm extends Activity implements OnClickListener{
         mStopButton.setOnClickListener(this);
         Button mUploadButton = (Button)findViewById(R.id.uploadButton);
         mUploadButton.setOnClickListener(this);
+        Button mMenuButton = (Button)findViewById(R.id.menuButton);
+        mMenuButton.setOnClickListener(this);
 
 		if (DEBUG)
 			Log.e(LOG_TAG, "+++ DONE IN ON CREATE +++");
@@ -382,6 +384,9 @@ public class BlueTerm extends Activity implements OnClickListener{
                 byte[] data = "upload".getBytes();
                 mSerialService.write(data);
                 break;
+            }
+            case R.id.menuButton:{
+                this.doOpenOptionsMenu();
             }
 
             //.... etc

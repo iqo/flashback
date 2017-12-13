@@ -18,11 +18,11 @@ ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\
 application
 ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:5-22:19
 	android:label
-		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:48-80
+		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:46-71
 	android:debuggable
-		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:81-107
+		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:72-98
 	android:icon
-		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:18-47
+		ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:6:18-45
 activity#es.pymasde.blueterm.BlueTerm
 ADDED from C:\Users\FIlip\Documents\Skola\FlashBack\Git\flashback\app\Trial\app\src\main\AndroidManifest.xml:7:9-16:20
 	android:label
